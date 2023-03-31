@@ -38,7 +38,7 @@ function App() {
         title.map(function(value, i) {
           return (
             <div key={i} className='list'>
-              <h4 onClick={()=> {setGreat([...great]+1)}}>{ title[i] } 👍 {great[idx]}</h4>
+              <h4 onClick={()=> {setGreat([...great]+1)}}>{ title[i] } 👍 {great[i]}</h4>
               <p>2월 17일 발행</p>
             </div>
           )
