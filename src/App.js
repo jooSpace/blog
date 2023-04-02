@@ -5,9 +5,11 @@ import Modal from './component/modal';
 function App() {
 
   let post = '강남 우동 맛집';
+  let [titleId, setTitleId] = useState(0);
   let [title, setTitle] = useState(['남자 코트 추천', '여자 코트 추천', '가',]);
-  let [great, setGreat] = useState([ 0, 0, 0]);
+  let [great, setGreat] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
+  let [inputval, setInputval] = useState("");
   
   return (
     <div className="App">
@@ -32,19 +34,46 @@ function App() {
         <p>2월 17일 발행</p>
       </div> */}
 
-      {/* {modal == false ? null : <Modal></Modal>} */}
+      {modal == false ? null : <Modal titleId={titleId} setTitle={setTitle} title={title}></Modal>}
 
       {
-        title.map(function(value, i) {
+        title.map(function(val, i) {
           return (
             <div key={i} className='list'>
-              <h4 onClick={()=> {setGreat([...great]+1)}}>{ title[i] } 👍 {great[i]}</h4>
+              <h4 onClick={() => {setModal(true); setTitleId(i)}}>{title[i]} 
+                <span onClick={()=> {
+                  let copy = [...great];
+                  copy[i] = copy[i] + 1                 
+                  setGreat(copy)}}
+                >👍 {great[i]}</span>
+              </h4>
               <p>2월 17일 발행</p>
+              <button type='button' onClick={() => {
+                let copy = [...title];
+                copy.splice(i, 1);
+                setTitle(copy);
+              }}>
+                삭제
+              </button>
             </div>
           )
         })
       }
 
+      <input onChange={(e)=> {
+        setInputval(e.target.value);
+        console.log(inputval);
+        
+      }}></input>
+      <button type='button' onClick={() => {
+        let copy = [...title]
+        copy.push(inputval);
+        setTitle(copy);
+        console.log(title)
+      }}>
+        확인
+      </button>
+      
     </div>
   );
 }
